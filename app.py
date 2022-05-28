@@ -18,7 +18,7 @@ lottie_olympic = load_lottie_olympic("https://assets7.lottiefiles.com/private_fi
 
 
 st.set_page_config(layout="wide")
-first, last = st.columns([6,2])
+first, last = st.columns([6,3])
 first.title("OLYMPICS DATA ANALYSIS (Summer)")
 with last:
     st_lottie(lottie_olympic, key="Olympics")
@@ -41,9 +41,9 @@ if user_menu == 'Home':
     st.header("Home")
 
     st.subheader("Data Analysis of Olympics for the Summer season , "
-             "is done to find out how many sports are played till now from 1900 to 2016. "
+             "is done to find out how many sports are played till now from 1896 to 2016. "
              "Which country have participated and  how much time it participated and which country have won which medal in which year "
-             "and much more information. Basically, The reason for the development of this analysis is to learn data visualization for given inputs")
+             "and much more information. Basically, The reason for the development of this analysis is to learn data visualization for given inputs.")
     st.image("Olympics.jpg", width=800)
 
 
@@ -70,9 +70,24 @@ if user_menu == 'Medal Tally':
         if r.status_code != 200:
             return None
         return r.json()
+    medal_olympic = load_medal_olympic("https://assets2.lottiefiles.com/packages/lf20_x7cjigjf.json")
 
-    medal_olympic = load_medal_olympic("https://assets7.lottiefiles.com/private_files/lf30_htpumt01.json")
-    st_lottie(medal_olympic, width= 200, key="medal")
+    def load_progress(url):
+        r = requests.get(url)
+        if r.status_code != 200:
+            return None
+        return r.json()
+    progress = load_progress("https://assets8.lottiefiles.com/packages/lf20_wvntgftp.json")
+
+    left_column, right_column = st.columns(2)
+    with left_column:
+        st_lottie(progress, width=200, key="progress")
+
+
+    #with right_column:
+     #   st_lottie(medal_olympic, width=200, key="medal")
+
+
 
     st.table(medal_tally)
 
@@ -116,7 +131,7 @@ if user_menu == 'Overall Analysis':
             return None
         return r.json()
 
-    successful_athlete = load_successful_athlete_olympic("https://assets7.lottiefiles.com/packages/lf20_i0f0vmp8.json")
+    successful_athlete = load_successful_athlete_olympic("https://assets1.lottiefiles.com/packages/lf20_qjtiav2l.json")
     st_lottie(successful_athlete, width= 200, key="successful-athletes")
 
     sport_list = df['Sport'].unique().tolist()
@@ -183,7 +198,7 @@ if user_menu == 'Country-wise Analysis':
             return None
         return r.json()
 
-    top10 = load_top10_olympic("https://assets5.lottiefiles.com/private_files/lf30_j57dwawi.json")
+    top10 = load_top10_olympic("https://assets2.lottiefiles.com/packages/lf20_x7cjigjf.json")
     st_lottie(top10, width=200, key="top10")
 
     top10_df = helper.most_successful_countrywise(df, selected_country)
@@ -247,7 +262,7 @@ if user_menu == 'Athlete wise Analysis ':
             return None
         return r.json()
 
-    gold_medal = load_gold_medal("https://assets8.lottiefiles.com/packages/lf20_ly62jiq0.json")
+    gold_medal = load_gold_medal("https://assets2.lottiefiles.com/packages/lf20_gKzBIi.json")
     st_lottie(gold_medal, width=200, key="gold")
 
     st.plotly_chart(fig)
@@ -267,7 +282,7 @@ if user_menu == 'Athlete wise Analysis ':
             return None
         return r.json()
 
-    silver_medal = load_silver_medal("https://assets7.lottiefiles.com/datafiles/NvSZw4XogL6CADr/data.json")
+    silver_medal = load_silver_medal("https://assets2.lottiefiles.com/packages/lf20_aw74oice.json")
     st_lottie(silver_medal, width=200, key="silver")
 
     st.plotly_chart(fig)
